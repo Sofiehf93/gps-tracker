@@ -19,13 +19,13 @@ position.coords.latitude;
 const lng =
 position.coords.longitude;
 
-channel.publish(
-"move",
-{
-lat,
-lng
-}
-);
+channel.publish("move", { lat, lng })
+  .then(() => {
+    console.log("SENT:", lat, lng);
+  })
+  .catch(err => {
+    console.log("PUBLISH FAIL:", err);
+  });
 
 status.innerText =
 "📍 GPS aktiv";
