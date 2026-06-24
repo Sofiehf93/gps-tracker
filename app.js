@@ -22,10 +22,10 @@ position.coords.longitude;
 
 channel.publish("move", { lat, lng })
   .then(() => {
-    console.log("SENT:", lat, lng);
+    console.log("SENT OK:", lat, lng);
   })
-  .catch(err => {
-    console.log("PUBLISH FAIL:", err);
+  .catch((err) => {
+    console.log("SEND FAIL:", err);
   });
 
 status.innerText =
