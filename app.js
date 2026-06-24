@@ -28,9 +28,9 @@ channel.publish("move", { lat, lng })
     console.log("SEND FAIL:", err);
   });
 
-status.innerText =
-"📍 GPS aktiv";
+status.innerText = "📍 GPS aktiv";
 
+  status.innerText = "📤 Skickar GPS...";
 },
 
 ()=>{
