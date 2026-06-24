@@ -1,50 +1,49 @@
-const status =
-document.getElementById("status");
+const status = document.getElementById("status");
 
-const ably =
-new Ably.Realtime(
-"Ixi74w.xd6tRQ:GO8CXuRr64SY5ZqgxcDB-2qXxCC_qFZyIzoG68ilV40"
+// Ably connection
+const ably = new Ably.Realtime(
+  "Ixi74w.xd6tRQ:GO8CXuRr64SY5ZqgxcDB-2qXxCC_qFZyIzoG68ilV40"
 );
 
-const channel =
-ably.channels.get("gps");
+const channel = ably.channels.get("gps");
 
+// Debug connection
+ably.connection.on("connected", () => {
+  console.log("ABLY CONNECTED");
+});
+
+// GPS tracking
 navigator.geolocation.watchPosition(
 
-(position) => {
-  console.log("GPS OK", position.coords);
+  (position) => {
+    console.log("GPS OK", position.coords);
 
-const lat =
-position.coords.latitude;
+    const lat = position.coords.latitude;
+    const lng = position.coords.longitude;
 
-const lng =
-position.coords.longitude;
+    status.innerText = "📤 Skickar GPS...";
 
-channel.publish("move", { lat, lng })
-  .then(() => {
-    status.innerText = "✔️ SENT OK";
-  })
-  .catch(() => {
-    status.innerText = "❌ SEND FAIL";
-  });
+    channel.publish("move", { lat, lng })
+      .then(() => {
+        console.log("SENT OK:", lat, lng);
+        status.innerText = "✔️ SENT OK";
+      })
+      .catch((err) => {
+        console.log("SEND FAIL:", err);
+        status.innerText = "❌ SEND FAIL";
+      });
 
-status.innerText = "📍 GPS aktiv";
+  },
 
-  
-},
+  (error) => {
+    console.log("GPS ERROR:", error);
+    status.innerText = "⚠️ Tillåt plats";
+  },
 
-()=>{
-status.innerText = "📤 Skickar GPS...";
-  
-status.innerText =
-"⚠️ Tillåt plats";
-
-},
-
-{
-enableHighAccuracy:true,
-maximumAge:1000,
-timeout:5000
-}
+  {
+    enableHighAccuracy: true,
+    maximumAge: 1000,
+    timeout: 5000
+  }
 
 );
