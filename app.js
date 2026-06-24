@@ -1,5 +1,3 @@
-document.body.innerHTML = "🔥 NY KOD KÖR";
-
 const status = document.getElementById("status");
 
 status.innerText = "TEST STARTAR";
