@@ -1,10 +1,22 @@
+const status = document.getElementById("status");
+
+status.innerText = "BEGÄR GPS...";
+
 navigator.geolocation.getCurrentPosition(
   (pos) => {
-    document.getElementById("status").innerText =
-      "GPS FUNKAR: " + pos.coords.latitude;
+    status.innerText =
+      "GPS FUNKAR: " +
+      pos.coords.latitude +
+      ", " +
+      pos.coords.longitude;
   },
   (err) => {
-    document.getElementById("status").innerText =
-      "GPS BLOCKAD: " + err.message;
+    status.innerText =
+      "GPS FEL: " + err.message;
+  },
+  {
+    enableHighAccuracy: true,
+    timeout: 10000,
+    maximumAge: 0
   }
 );
