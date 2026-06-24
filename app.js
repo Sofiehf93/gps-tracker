@@ -11,7 +11,8 @@ ably.channels.get("gps");
 
 navigator.geolocation.watchPosition(
 
-(position)=>{
+(position) => {
+  console.log("GPS OK", position.coords);
 
 const lat =
 position.coords.latitude;
