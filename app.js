@@ -30,11 +30,12 @@ channel.publish("move", { lat, lng })
 
 status.innerText = "📍 GPS aktiv";
 
-  status.innerText = "📤 Skickar GPS...";
+  
 },
 
 ()=>{
-
+status.innerText = "📤 Skickar GPS...";
+  
 status.innerText =
 "⚠️ Tillåt plats";
 
