@@ -22,10 +22,10 @@ position.coords.longitude;
 
 channel.publish("move", { lat, lng })
   .then(() => {
-    console.log("SENT OK:", lat, lng);
+    status.innerText = "✔️ SENT OK";
   })
-  .catch((err) => {
-    console.log("SEND FAIL:", err);
+  .catch(() => {
+    status.innerText = "❌ SEND FAIL";
   });
 
 status.innerText = "📍 GPS aktiv";
